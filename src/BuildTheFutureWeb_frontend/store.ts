@@ -3,18 +3,11 @@ import type { Principal } from "@dfinity/principal";
 import type { HttpAgent, Identity } from "@dfinity/agent";
 import { StoicIdentity } from "ic-stoic-identity";
 import {
-  PersonalWebSpace_backend,
+  BuildTheFutureWeb_backend,
   createActor as createBackendCanisterActor,
   canisterId as backendCanisterId,
   idlFactory as backendIdlFactory,
-} from "../declarations/PersonalWebSpace_backend";
-
-import {
-  newwave,
-  createActor as createProtocolCanisterActor,
-  canisterId as protocolCanisterId,
-  idlFactory as protocolIdlFactory,
-} from "../integrations/BebbProtocol";
+} from "../declarations/BuildTheFutureWeb_backend";
 
 //__________Local vs Mainnet Development____________
 /* export const HOST =
@@ -29,8 +22,7 @@ export const HOST =
 
 type State = {
   isAuthed: "plug" | "stoic" | null;
-  backendActor: typeof PersonalWebSpace_backend;
-  protocolActor: typeof newwave;
+  backendActor: typeof BuildTheFutureWeb_backend;
   principal: Principal;
   accountId: string;
   error: string;
@@ -40,9 +32,6 @@ type State = {
 const defaultState: State = {
   isAuthed: null,
   backendActor: createBackendCanisterActor(backendCanisterId, {
-    agentOptions: { host: HOST },
-  }),
-  protocolActor: createProtocolCanisterActor(protocolCanisterId, {
     agentOptions: { host: HOST },
   }),
   principal: null,
@@ -85,16 +74,6 @@ export const createStore = ({
       return;
     };
 
-    const protocolActor = createProtocolCanisterActor(protocolCanisterId, {
-      agentOptions: {
-        identity,
-        host: HOST,
-      },
-    });
-    if (!protocolActor) {
-      console.warn("couldn't create protocol actor");
-    };
-
     // the stoic agent provides an `accounts()` method that returns
     // accounts associated with the principal
     let accounts = JSON.parse(await identity.accounts());
@@ -102,7 +81,6 @@ export const createStore = ({
     update((state) => ({
       ...state,
       backendActor,
-      protocolActor,
       principal: identity.getPrincipal(),
       accountId: accounts[0].address, // we take the default account associated with the identity
       isAuthed: "stoic",
@@ -170,22 +148,11 @@ export const createStore = ({
     const backendActor = (await window.ic?.plug.createActor({
       canisterId: backendCanisterId,
       interfaceFactory: backendIdlFactory,
-    })) as typeof PersonalWebSpace_backend;
+    })) as typeof BuildTheFutureWeb_backend;
 
     if (!backendActor) {
       console.warn("couldn't create backend actor");
       return;
-    };
-
-    let protocolActor = defaultState.protocolActor;
-    try {
-      protocolActor = (await window.ic?.plug.createActor({
-        canisterId: protocolCanisterId,
-        interfaceFactory: protocolIdlFactory,
-      })) as unknown as typeof newwave;
-    } catch (err) {
-      console.warn("couldn't create protocol actor");
-      console.warn(err);
     };
 
     const principal = await window.ic.plug.agent.getPrincipal();
@@ -193,7 +160,6 @@ export const createStore = ({
     update((state) => ({
       ...state,
       backendActor,
-      protocolActor,
       principal,
       accountId: window.ic.plug.sessionManager.sessionData.accountId,
       isAuthed: "plug",
@@ -227,7 +193,7 @@ export const createStore = ({
 };
 
 export const store = createStore({
-  whitelist: [backendCanisterId, protocolCanisterId],
+  whitelist: [backendCanisterId],
   host: HOST,
 });
 
@@ -247,7 +213,7 @@ declare global {
           whitelist?: string[];
           host?: string;
         }) => Promise<any>;
-        createActor: (options: {}) => Promise<typeof PersonalWebSpace_backend>;
+        createActor: (options: {}) => Promise<typeof BuildTheFutureWeb_backend>;
         isConnected: () => Promise<boolean>;
         disconnect: () => Promise<boolean>;
         createAgent: (args?: {
