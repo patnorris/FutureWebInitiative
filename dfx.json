@@ -1,0 +1,25 @@
+{
+  "canisters": {
+    "BuildTheFutureWeb_backend": {
+      "main": "src/BuildTheFutureWeb_backend/main.mo",
+      "type": "motoko"
+    },
+    "BuildTheFutureWeb_frontend": {
+      "dependencies": [
+        "BuildTheFutureWeb_backend"
+      ],
+      "frontend": {
+        "entrypoint": "dist/index.html"
+      },
+      "source": ["dist/"],
+      "type": "assets"
+    }
+  },
+  "defaults": {
+    "build": {
+      "packtool": "vessel sources",
+      "args": ""
+    }
+  },
+  "version": 1
+}
