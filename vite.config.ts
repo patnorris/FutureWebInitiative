@@ -74,7 +74,7 @@ export default defineConfig({
       ...aliases,
     },
   },
-  //publicDir: "./src/PersonalWebSpace_frontend/public",
+  //publicDir: "./src/BuildTheFutureWeb_frontend/public",
   publicDir: "./src/BuildTheFutureWeb_frontend/assets",
   server: {
     host: true,

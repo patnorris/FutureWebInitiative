@@ -5,7 +5,6 @@
   import Button from "../components/Button.svelte";
   import Topnav from "../components/Topnav.svelte";
   import Footer from "../components/Footer.svelte";
-  import UserSpaces from "../components/UserSpaces.svelte";
 
   let hasLoadedSpaces = false;
   let loadedUserSpaces = [];
@@ -80,7 +79,6 @@
     {#if !hasLoadedSpaces}
       <p hidden>{loadUserSpaces()}</p>
     {:else}
-      <UserSpaces spaces={loadedUserSpaces} />
     {/if}
   {/if}
 </section>

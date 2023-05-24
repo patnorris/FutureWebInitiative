@@ -2,7 +2,7 @@
 
 To get started, you might want to explore the project directory structure and the default configuration file. Working with this project in your development environment will not affect any production deployment or identity tokens.
 
-To learn more before you start working with PersonalWebSpace, see the following documentation available online:
+To learn more before you start working, see the following documentation available online:
 
 - [Quick Start](https://sdk.dfinity.org/docs/quickstart/quickstart-intro.html)
 - [SDK Developer Tools](https://sdk.dfinity.org/docs/developers-guide/sdk-guide.html)
@@ -35,20 +35,8 @@ Note: this starts a replica which includes the canisters state stored from previ
 If you want to start a clean local IC replica (i.e. all canister state is erased) run instead: npm run erase-replica
 
 # 3. Deploys your canisters to the replica and generates your candid interface
-TODO
 Local:
-dfx deploy --argument "(
-  principal\"$(dfx identity get-principal)\",
-  record {
-    logo = record {
-      logo_type = \"image/png\";
-      data = \"\";
-    };
-    name = \"PersonalWebSpace\";
-    symbol = \"PWS\";
-    maxLimit = 65535;
-  }
-)"
+dfx deploy --argument "(principal\"$(dfx identity get-principal)\")"
 
 --> access frontend at http://localhost:4943/?canisterId=ryjl3-tyaaa-aaaaa-aaaba-cai
 access routes like so http://localhost:4943/?canisterId=ryjl3-tyaaa-aaaaa-aaaba-cai#/testroom
@@ -69,35 +57,13 @@ dfx start --background
 
 Deploy to Mainnet (live IC):
 Ensure that all changes needed for Mainnet deployment have been made (e.g. define HOST in store.ts)
-TODO
-dfx deploy --network ic --argument "(
-  principal\"$(dfx identity get-principal)\",
-  record {
-    logo = record {
-      logo_type = \"image/png\";
-      data = \"\";
-    };
-    name = \"PersonalWebSpace\";
-    symbol = \"PWS\";
-    maxLimit = 65535;
-  }
-)"
+
+dfx deploy --network ic --argument "(principal\"$(dfx identity get-principal)\")"
 
 In case there are authentication issues, you could try this command
 Note that only authorized identities which are set up as canister controllers may deploy the production canisters
-TODO
-dfx deploy --network ic --wallet "$(dfx identity --network ic get-wallet)" --argument "(
-  principal\"$(dfx identity get-principal)\",
-  record {
-    logo = record {
-      logo_type = \"image/png\";
-      data = \"\";
-    };
-    name = \"PersonalWebSpace\";
-    symbol = \"PWS\";
-    maxLimit = 65535;
-  }
-)"
+
+dfx deploy --network ic --wallet "$(dfx identity --network ic get-wallet)" --argument "(principal\"$(dfx identity get-principal)\")"
 
 # Cycles for Production Canisters
 Fund wallet with cycles (from ICP): https://medium.com/dfinity/internet-computer-basics-part-3-funding-a-cycles-wallet-a724efebd111

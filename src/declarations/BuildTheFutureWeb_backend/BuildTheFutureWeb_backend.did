@@ -1,0 +1,5 @@
+type BuildTheFutureWeb = 
+ service {
+   greet: (text) -> (text);
+ };
+service : (principal) -> BuildTheFutureWeb

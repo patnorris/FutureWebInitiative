@@ -27,9 +27,9 @@
     "paths": { "canisters/*": [".dfx/local/canisters/*"] }
   },
   "include": [
-    "src/PersonalWebSpace_frontend/**/*.d.ts",
-    "src/PersonalWebSpace_frontend/**/*.ts",
-    "src/PersonalWebSpace_frontend/**/*.js",
-    "src/PersonalWebSpace_frontend/**/*.svelte"
+    "src/BuildTheFutureWeb_frontend/**/*.d.ts",
+    "src/BuildTheFutureWeb_frontend/**/*.ts",
+    "src/BuildTheFutureWeb_frontend/**/*.js",
+    "src/BuildTheFutureWeb_frontend/**/*.svelte"
   ]
 }
