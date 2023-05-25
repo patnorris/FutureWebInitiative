@@ -5,140 +5,313 @@
   import Button from "../components/Button.svelte";
   import Topnav from "../components/Topnav.svelte";
   import Footer from "../components/Footer.svelte";
-
-  let hasLoadedSpaces = false;
-  let loadedUserSpaces = [];
-
-  const createNewUserSpace = async (element) => {
-    element.setAttribute("disabled", true);
-    document.getElementById("createSubtext").innerText = "Creating your Personal Web Space, just a moment...";
-    
-    const resp = await fetch("defaultRoom.html"); // Fetches default space each user gets initially
-    const defaultSpaceHtml = await resp.text();
-    const space = await $store.backendActor.createSpace(defaultSpaceHtml);
-    document.getElementById("createSubtext").innerText = "Ohh yeah, you just got yourself a new Personal Web Space!";
-    
-    // Reload user's spaces
-    loadUserSpaces();
-
-    element.removeAttribute("disabled");
-  };
-
-  const loadUserSpaces = async () => {
-    const userSpaces = await $store.backendActor.getCallerSpaces();
-    const numberOfSpacesUserOwns = userSpaces.length;
-    if (numberOfSpacesUserOwns < 1) {
-      document.getElementById("spacesSubtext").innerText = "You don't own any spaces yet. Get your Personal Web Space now by clicking on the Create tab!";
-    } else {
-      document.getElementById("spacesSubtext").innerText = numberOfSpacesUserOwns === 1 
-        ? `Big success, you own ${numberOfSpacesUserOwns} space! Let's take a look:`
-        : `Big success, you own ${numberOfSpacesUserOwns} spaces! Let's take a look:`;
-
-      loadedUserSpaces = userSpaces;
-      hasLoadedSpaces = true;
-    }
-  };
 </script>
 
 <Topnav />
 
-<div class="py-7 items-center leading-8 text-center text-xl font-semibold">
-  <h3>Want to have your own Virtual Home?</h3>
-  <h3>Want to become part of the Open Metaverse Neighborhood?</h3>
-  <h3>Want to have your Personal Web Space as a 3D webpage?</h3>
-</div>
+<!-- Hero Section -->
+<header>
+  <div>
+    <img src="./FutureWebInitiative_img.png" alt="Future Web Initiative logo">
+    <h1>Let's Build the Future Web</h1>
+  </div>
+  <div>
+      <h2>User-centric, Decentralized, 3D, and Constantly Augmented</h2>
+      <p>Want to get involved or stay updated?</p>
+      <form>
+        <input type="email" id="hero-email" placeholder="Enter your email...">
+        <button type="submit">Submit</button>
+      </form>
+  </div>
+</header>
 
-<section id="login" class="py-7 space-y-6 items-center text-center bg-slate-100">
-  {#if !$store.isAuthed}
-    <Login />
-  {:else}
-    <h3 class="font-bold">You're Logged In</h3>
-    <div>Principal: {$store.principal}</div>
-    <div>AccountId: {$store.accountId}</div>
-    <Button on:click={() => store.disconnect()}>disconnect</Button>
-  {/if}
+<section id="intro">
+  <h2 class="section-title">What's all this Future Web talk about?</h2>
+  <p class="intro-text">Welcome! This unique platform is dedicated to the exploration and understanding of the next generation of the Web. Our Website serves as a showcase for groundbreaking projects and initiatives that are shaping the Web of tomorrow - a place where the user is central, data is decentralized, experiences are immersive in 3D, and the digital blends seamlessly with the physical through constant augmentation. We believe in a future Web that values privacy, encourages collaboration, and fosters innovation. Join us as we delve into these exciting projects, and discover how they're leading the way towards a more connected, interactive, and secure future online.</p>
 </section>
 
-<section id="create" class="py-7 space-y-6 items-center text-center">
-  <h3 class="font-bold">Create a new Personal Web Space</h3>
-  {#if !$store.isAuthed}
-    <button type='button' id='createButton' disabled class="bg-slate-500 text-white font-bold py-2 px-4 rounded opacity-50 cursor-not-allowed">Create Space</button>
-    <p id='createSubtext'>Log in to generate a 3D room (Your Space, Your Realm, Your Virtual Home) which you can edit afterwards. Fun fact: The Space is an NFT itself and will be sent to your wallet. This way you know it's truly yours!</p>
-  {:else}
-    <button type='button' id='createButton' on:click={() => push("#/create")} class="active-app-button bg-slate-500 text-white font-bold py-2 px-4 rounded">Create Space</button>
-    <p id='createSubtext'>Click and we'll generate a 3D room for you (Your Space, Your Realm, Your Virtual Home) which you can edit afterwards. Fun fact: The Space is an NFT itself and will be sent to your wallet. This way you know it's truly yours!</p>
-  {/if}
+<!-- Features Section -->
+<section id="features">
+  <h2 class="section-title">Key Features of the Future Web</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+        <h3>User-centric</h3>
+        <img src="./FutureWebInitiative_UserCentric_img.png" alt="The Future Web will be User-centric">
+        <p>In the Future Web, you're not just a user - you're the center of your online universe. User-centric design prioritizes your needs, preferences, and values, ensuring you have a personalized and efficient Web experience. It's about empowering you, giving you control over your data, and designing Websites and applications that are easy to understand and use.</p>
+    </div>
+    <div class="feature-card">
+        <h3>Decentralized</h3>
+        <img src="./FutureWebInitiative_Decentralized_img.png" alt="The Future Web will be Decentralized">
+        <p>The Future Web seeks to eliminate the dependence on centralized servers and data control, which can be susceptible to hacking, censorship, and control by a single authority. Instead, the decentralized Web distributes data across numerous nodes, increasing security and ensuring no single point of failure. This fosters an environment of transparency, mutual trust, and collective ownership.</p>
+    </div>
+    <div class="feature-card">
+      <h3>3D</h3>
+      <img src="./FutureWebInitiative_3D_img.png" alt="The Future Web will be 3D">
+      <p>Welcome to a new dimension of the internet - the 3D Web. This isn't just about viewing content; it's about interacting with it in a more immersive and engaging manner. From virtual reality (VR) experiences to 3D models that you can rotate and inspect closely, the 3D Web is set to revolutionize how we interact with digital content, bringing a sense of depth and reality to your online journey.</p>
+    </div>
+    <div class="feature-card">
+        <h3>Constantly Augmented</h3>
+        <img src="./FutureWebInitiative_ConstantlyAugmented_img.png" alt="The Future Web will be Constantly Augmented">
+        <p>Augmented reality (AR) brings the digital world into the physical world, enhancing the way you interact with the internet. The Future Web will be constantly augmented, overlaying digital data onto your physical surroundings in real time. This can change the way you shop, learn, work, and play, creating a seamless blend of your online and offline realities.</p>
+    </div>  
+  </div>
 </section>
 
-<section id="spaces" class="py-7 space-y-6 items-center text-center bg-slate-100">
-  <h3 class="font-bold">My Personal Web Spaces</h3>
-  {#if !$store.isAuthed}
-    <p id='spacesSubtext'>Log in to see which Spaces you own.</p>
-  {:else}
-    <p id='spacesSubtext'>Let's see which Spaces you own...</p>
-    {#if !hasLoadedSpaces}
-      <p hidden>{loadUserSpaces()}</p>
-    {:else}
-    {/if}
-  {/if}
+<!-- Projects Section -->
+<section id="projects">
+  <h2 class="section-title">Our Projects</h2>
+  <div class="project-card">
+    <h3>Decentralized Web Stack</h3>
+    <p>Reimagining the stack of Web technologies we use everyday with a focus on decentralization.</p>
+    <a href="#/decentralizedwebstack">Learn More</a>
+  </div>
+  <div class="project-card">
+    <h3>Bebb Protocol</h3>
+    <p>The Web3 Solution for the Internet-of-Everything.</p>
+    <a href="#/bebbprotocol">Learn More</a>
+  </div>
+  <div class="project-card">
+    <h3>Open Internet Metaverse</h3>
+    <p>The Internet is our Metaverse - let's make it a great open space together.</p>
+    <a href="#/openinternetmetaverse">Learn More</a>
+  </div>
+  <h2 class="section-title">Related Initiatives</h2>
+  <div class="project-card">
+    <h3>Overview on External Projects</h3>
+    <p>All of them are contributing to the future Web.</p>
+    <a href="#/relatedinitiatives">Learn More</a>
+  </div>
 </section>
-
-<div class='clearfix'></div>
 
 <Footer />
 
 <style global>
-/* NOTE: these styles are global and affect any element in the app. Thus, ensure that there aren't any conflicts with the class names chosen (i.e. avoid generic names as they might conflict with an A-Frame class, e.g. content which is used in the Inspector)  */
-  .App-logo {
-    height: 15vmin;
-    pointer-events: none;
+/* NOTE: these styles are global and affect any element in the app. Thus, ensure that there aren't any conflicts with the class names chosen (i.e. avoid generic names as they might conflict)  */
+  /* Reset some default browser styles */
+  * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
   }
 
-  .App-header {
-    margin-top: 150px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
+  body {
+      font-family: Arial, sans-serif;
+      color: #333;
+      line-height: 1.6;
+      background-color: #f4f4f4;
   }
 
-  .App-link {
-    color: rgb(26, 117, 255);
+  header, #features, footer {
+      padding: 20px;
   }
 
-  .demo-button {
-    background: #a02480;
-    padding: 0 1.3em;
-    margin-top: 1em;
-    border-radius: 60px;
-    font-size: 0.7em;
-    height: 35px;
-    outline: 0;
-    border: 0;
-    cursor: pointer;
-    color: white;
+  header {
+      background: #333;
+      color: #ffffff;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
   }
 
-  .demo-button:active {
-    color: white;
-    background: #979799;
+  header h1 {
+      font-size: 2em;
+      margin-bottom: 10px;
   }
 
-  .space-details-collapsible {
-    padding: 7px;
+  header h2 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+  }
+
+  header p {
+      margin-bottom: 20px;
+  }
+
+  header form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+
+  header input[type="email"] {
+      padding: 10px;
+      font-size: 1em;
+      margin-right: 10px;
+  }
+
+  header button {
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #009578;
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+  }
+
+  header img {
+    display: block;
+    width: 40%;
+    max-width: 900px;
+    height: auto;
+    margin: auto;
+  }
+
+  .section-title {
+    font-size: 2.2em;
     text-align: center;
-    border: none;
-    outline: none;
-    cursor: pointer;
+    color: #333;
+    margin: 20px auto;
+    width: fit-content; /* make sure that the width is only as wide as the content, so that auto margins will center the title */
   }
 
-  .active-app-button:hover, .space-details-collapsible:hover {
-    background-color: #555;
+  .features-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items: start;
+      gap: 30px;
+      margin: 0 auto;
+      max-width: 1200px;
   }
 
-  .space-details-content {
-    display: none;
-    overflow: hidden;
+  .feature-card {
+      flex: 0 1 calc(50% - 30px);
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease;
   }
+
+  @media (max-width: 768px) {
+    .feature-card {
+      flex: 0 1 100%;
+    }
+  }
+
+  .feature-card:hover {
+      box-shadow: 0px 1px 18px rgba(0, 0, 0, 0.1);
+  }
+
+  .feature-card h3 {
+      font-size: 20px;
+      color: #333;
+      text-align: center;
+      margin: 20px 0;
+  }
+
+  .feature-card img {
+      width: 100%;   /* Set the width */
+      height: auto;  /* Set the height */
+      object-fit: cover; /* Use this to maintain aspect ratio */
+  }
+
+  .feature-card p {
+    font-size: 1em;
+    color: #666;
+    margin: 0 20px 20px 20px;
+    text-align: justify;
+  }
+
+  footer {
+      background: #333;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px 0;
+  }
+
+  footer p {
+      margin-bottom: 20px;
+  }
+
+  footer a {
+      margin: 0 10px;
+      color: #ffffff;
+  }
+
+  footer img {
+    display: block;
+    width: 20%;
+    max-width: 900px;
+    height: auto;
+    margin: auto;
+  }
+
+  .projects-title {
+    font-size: 30px;
+    text-align: center;
+    color: #333;
+    margin: 50px 0;
+  }
+
+  .project-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 15px;
+    text-align: center;
+    transition: transform .2s;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  }
+
+  .project-card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .project-card p {
+    font-size: 16px;
+    color: #666;
+  }
+
+  .project-card a {
+    display: inline-block;
+    color: #0066cc;
+    text-decoration: none;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    transition: background-color .2s;
+  }
+
+  .project-card a:hover {
+    background-color: #e6e6e6;
+  }
+
+  .project-card:hover {
+    transform: scale(1.02);
+  }
+
+  #intro {
+      background-color: #f9f9f9;
+      padding: 40px 20px;
+      text-align: justify;
+      line-height: 1.6;
+      border-bottom: 1px solid #e0e0e0;
+      margin: 20px 0;
+  }
+
+  .intro-title {
+      font-size: 2em;
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+  }
+
+  .intro-text {
+      font-size: 1em;
+      margin: 0 auto;
+      max-width: 800px;
+      color: #666;
+  }
+
 </style>
