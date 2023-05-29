@@ -1,3 +1,16 @@
+import { BuildTheFutureWeb_backend } from "canisters/BuildTheFutureWeb_backend";
+
+export async function submitEmailSignUpForm(emailAddress, pageSubmittedFrom) {
+  console.log("submitEmailSignUpForm", emailAddress, pageSubmittedFrom);
+  const input = {
+    emailAddress: emailAddress,
+    pageSubmittedFrom: pageSubmittedFrom,
+  };
+  let result = await BuildTheFutureWeb_backend.submitSignUpForm(input);
+  console.log("submitEmailSignUpForm", result);
+  return result;
+}
+
 export function getNumber(value) {
   return parseFloat(value.toFixed(3));
 }

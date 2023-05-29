@@ -1,13 +1,73 @@
 import Principal "mo:base/Principal";
 import Text "mo:base/Text";
+import HashMap "mo:base/HashMap";
+import Iter "mo:base/Iter";
+import Nat64 "mo:base/Nat64";
+import Int "mo:base/Int";
+import Time "mo:base/Time";
+import List "mo:base/List";
 
 import Types "./Types";
 import HTTP "./Http";
 
 shared actor class BuildTheFutureWeb(custodian: Principal) = Self {
+  
+  stable var custodians = List.make<Principal>(custodian);
+
 // TODO: instead add functions to manage cycles balance and gather stats
   public func greet(name : Text) : async Text {
     return "Hello, " # name # "!";
+  };
+
+  stable var emailSubscribersStorageStable : [(Text, Types.EmailSubscriber)] = [];
+  var emailSubscribersStorage : HashMap.HashMap<Text, Types.EmailSubscriber> = HashMap.HashMap(0, Text.equal, Text.hash);
+
+  func putEmailSubscriber(emailSubscriber : Types.EmailSubscriber) : Text {
+    emailSubscribersStorage.put(emailSubscriber.emailAddress, emailSubscriber);
+    return emailSubscriber.emailAddress;
+  };
+
+  func getEmailSubscriber(emailAddress : Text) : ?Types.EmailSubscriber {
+    let result = emailSubscribersStorage.get(emailAddress);
+    return result;
+  };
+
+  public func submitSignUpForm(submittedSignUpForm : Types.SignUpFormInput) : async Text {
+    switch(getEmailSubscriber(submittedSignUpForm.emailAddress)) {
+      case null {
+        let emailSubscriber : Types.EmailSubscriber = {
+          emailAddress: Text = submittedSignUpForm.emailAddress;
+          pageSubmittedFrom: Text = submittedSignUpForm.pageSubmittedFrom;
+          subscribedAt: Nat64 = Nat64.fromNat(Int.abs(Time.now()));
+        };
+        let result = putEmailSubscriber(emailSubscriber);
+        if (result != emailSubscriber.emailAddress) {
+          return "There was an error signing up. Please try again.";
+        };
+        return "Successfully signed up!";
+      };
+      case _ { return "Already signed up!"; };
+    };  
+  };
+
+  // TODO: Function for custodian to get all email subscribers
+  /* public shared({ caller }) func getEmailSubscribers() : async [Types.EmailSubscriber] {
+    if (List.some(custodians, func (custodian : Principal) : Bool { custodian == caller })) {
+      return List.toArray(Iter.toList(emailSubscribersStorage.entries()));
+    };
+    return [];
+  }; */
+
+  // TODO: Function for custodian to delete an email subscriber
+
+  // Upgrade Hooks
+  system func preupgrade() {
+    emailSubscribersStorageStable := Iter.toArray(emailSubscribersStorage.entries());
+  };
+
+  system func postupgrade() {
+    emailSubscribersStorage := HashMap.fromIter(Iter.fromArray(emailSubscribersStorageStable), emailSubscribersStorageStable.size(), Text.equal, Text.hash);
+    emailSubscribersStorageStable := [];
   };
 
 // HTTP interface

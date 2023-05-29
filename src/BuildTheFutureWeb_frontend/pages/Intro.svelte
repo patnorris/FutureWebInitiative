@@ -5,6 +5,17 @@
   import Button from "../components/Button.svelte";
   import Topnav from "../components/Topnav.svelte";
   import Footer from "../components/Footer.svelte";
+
+  import { submitEmailSignUpForm } from "../helpers/utils.js";
+  let message = "";
+  const submitForm = async (event) => {
+    console.log("submitForm", event);
+    event.preventDefault();
+    const email = document.getElementById('hero-email').value;
+    console.log("submitForm email", email);
+    message = await submitEmailSignUpForm(email, 'Intro');
+    console.log("submitForm message", message);
+  };
 </script>
 
 <Topnav />
@@ -18,10 +29,13 @@
   <div>
       <h2>User-centric, Decentralized, 3D, and Constantly Augmented</h2>
       <p>Want to get involved or stay updated?</p>
-      <form>
+      <form on:submit={submitForm}>
         <input type="email" id="hero-email" placeholder="Enter your email...">
         <button type="submit">Submit</button>
       </form>
+      {#if message}
+        <h2>{message}</h2>
+      {/if}
   </div>
 </header>
 
@@ -140,6 +154,7 @@
       padding: 10px;
       font-size: 1em;
       margin-right: 10px;
+      color: #000000;
   }
 
   header button {
@@ -153,8 +168,8 @@
 
   header img {
     display: block;
-    width: 40%;
-    max-width: 900px;
+    width: 60%;
+    max-width: 600px;
     height: auto;
     margin: auto;
   }
@@ -262,6 +277,12 @@
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   }
 
+  .project-card img {
+    width: 100px; /* Adjust as needed */
+    height: auto;
+    margin-bottom: 10px;
+  }
+
   .project-card h3 {
     font-size: 20px;
     margin-bottom: 10px;
@@ -312,6 +333,114 @@
       margin: 0 auto;
       max-width: 800px;
       color: #666;
+      padding: 5px 0;
+  }
+
+  .intro-image {
+    width: 100%;
+    height: auto;
+    padding: 15px 0;
+  }
+
+  .header-img {
+    width: 80%;
+    max-width: 600px;
+    height: auto;
+  }
+
+  .download-button {
+    display: block;
+    text-decoration: none;
+    color: #fff;
+    background-color: #007BFF;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    margin: 20px auto;
+    width: max-content;
+    transition: background-color 0.2s ease;
+  }
+
+  .download-button:hover {
+      background-color: #0056b3;
+  }
+
+  #developer-cta {
+    text-align: center;
+    padding: 20px;
+    background-color: #f8f9fa;
+  }
+
+  #cta {
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .cta-text {
+      font-size: 1.25em;
+      margin: 20px 0;
+      line-height: 1.6;
+  }
+
+  .cta-button, .cta-form button {
+      display: inline-block;
+      text-decoration: none;
+      color: #fff;
+      background-color: #007BFF;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: bold;
+      margin-top: 20px;
+      transition: background-color 0.2s ease;
+  }
+
+  .cta-button:hover, .cta-form button:hover {
+      background-color: #0056b3;
+  }
+
+  .cta-form {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px 0;
+  }
+
+  .cta-form input {
+      padding: 10px;
+      font-size: 1em;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+  }
+
+  .cta-form button {
+      cursor: pointer;
+  }
+
+  #call-to-action {
+    padding: 2em;
+    background: #f9f9f9;
+    text-align: center;
+  }
+
+  .cta-content {
+      max-width: 600px;
+      margin: 0 auto;
+  }
+
+  .cta-btn {
+      display: inline-block;
+      margin-top: 1em;
+      padding: 1em 2em;
+      background-color: #1e90ff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+  }
+
+  .cta-btn:hover {
+      background-color: #4682b4;
   }
 
 </style>

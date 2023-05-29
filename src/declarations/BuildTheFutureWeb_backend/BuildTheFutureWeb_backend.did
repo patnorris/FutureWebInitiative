@@ -1,5 +1,11 @@
+type SignUpFormInput = 
+ record {
+   emailAddress: text;
+   pageSubmittedFrom: text;
+ };
 type BuildTheFutureWeb = 
  service {
    greet: (text) -> (text);
+   submitSignUpForm: (SignUpFormInput) -> (text);
  };
 service : (principal) -> BuildTheFutureWeb
