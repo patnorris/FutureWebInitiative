@@ -9,12 +9,9 @@
   import { submitEmailSignUpForm } from "../helpers/utils.js";
   let message = "";
   const submitForm = async (event) => {
-    console.log("submitForm", event);
     event.preventDefault();
     const email = document.getElementById('hero-email').value;
-    console.log("submitForm email", email);
     message = await submitEmailSignUpForm(email, 'Intro');
-    console.log("submitForm message", message);
   };
 </script>
 

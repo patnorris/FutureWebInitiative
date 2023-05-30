@@ -25,6 +25,7 @@
     "types": ["vite/client", "svelte", "node"],
     "baseUrl": ".",
     "paths": { "canisters/*": [".dfx/local/canisters/*"] }
+    // "paths": { "canisters/*": ["src/declarations/*"] }
   },
   "include": [
     "src/BuildTheFutureWeb_frontend/**/*.d.ts",

@@ -36,7 +36,8 @@ If you want to start a clean local IC replica (i.e. all canister state is erased
 
 # 3. Deploys your canisters to the replica and generates your candid interface
 Local:
-dfx deploy --argument "(principal\"$(dfx identity get-principal)\")"
+dfx deploy --argument "(principal\"$(dfx identity get-principal)\")" BuildTheFutureWeb_backend
+dfx deploy
 
 --> access frontend at http://localhost:4943/?canisterId=ryjl3-tyaaa-aaaaa-aaaba-cai
 access routes like so http://localhost:4943/?canisterId=ryjl3-tyaaa-aaaaa-aaaba-cai#/testroom
@@ -58,12 +59,14 @@ dfx start --background
 Deploy to Mainnet (live IC):
 Ensure that all changes needed for Mainnet deployment have been made (e.g. define HOST in store.ts)
 
-dfx deploy --network ic --argument "(principal\"$(dfx identity get-principal)\")"
+dfx deploy --network ic --argument "(principal\"$(dfx identity get-principal)\")" BuildTheFutureWeb_backend
+dfx deploy --network ic
 
 In case there are authentication issues, you could try this command
 Note that only authorized identities which are set up as canister controllers may deploy the production canisters
 
-dfx deploy --network ic --wallet "$(dfx identity --network ic get-wallet)" --argument "(principal\"$(dfx identity get-principal)\")"
+dfx deploy --network ic --wallet "$(dfx identity --network ic get-wallet)" --argument "(principal\"$(dfx identity get-principal)\")" BuildTheFutureWeb_backend
+dfx deploy --network ic --wallet "$(dfx identity --network ic get-wallet)"
 
 # Cycles for Production Canisters
 Fund wallet with cycles (from ICP): https://medium.com/dfinity/internet-computer-basics-part-3-funding-a-cycles-wallet-a724efebd111
