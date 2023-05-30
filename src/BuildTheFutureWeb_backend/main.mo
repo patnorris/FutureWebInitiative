@@ -51,14 +51,21 @@ shared actor class BuildTheFutureWeb(custodian: Principal) = Self {
   };
 
   // TODO: Function for custodian to get all email subscribers
-  /* public shared({ caller }) func getEmailSubscribers() : async [Types.EmailSubscriber] {
+  public shared({ caller }) func getEmailSubscribers() : async [(Text, Types.EmailSubscriber)] {
     if (List.some(custodians, func (custodian : Principal) : Bool { custodian == caller })) {
-      return List.toArray(Iter.toList(emailSubscribersStorage.entries()));
+      return Iter.toArray(emailSubscribersStorage.entries());
     };
     return [];
-  }; */
+  };
 
-  // TODO: Function for custodian to delete an email subscriber
+  // Function for custodian to delete an email subscriber
+  public shared({ caller }) func deleteEmailSubscriber(emailAddress : Text) : async Bool {
+    if (List.some(custodians, func (custodian : Principal) : Bool { custodian == caller })) {
+      emailSubscribersStorage.delete(emailAddress);
+      return true;
+    };
+    return false;
+  };
 
   // Upgrade Hooks
   system func preupgrade() {

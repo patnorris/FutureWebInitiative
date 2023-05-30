@@ -68,6 +68,13 @@ Note that only authorized identities which are set up as canister controllers ma
 dfx deploy --network ic --wallet "$(dfx identity --network ic get-wallet)" --argument "(principal\"$(dfx identity get-principal)\")" BuildTheFutureWeb_backend
 dfx deploy --network ic --wallet "$(dfx identity --network ic get-wallet)"
 
+# Get and delete Email Subscribers
+dfx canister call BuildTheFutureWeb_backend getEmailSubscribers
+dfx canister call BuildTheFutureWeb_backend deleteEmailSubscriber 'j@g.com'
+
+dfx canister call BuildTheFutureWeb_backend getEmailSubscribers --network ic
+dfx canister call BuildTheFutureWeb_backend deleteEmailSubscriber 'j@g.com' --network ic
+
 # Cycles for Production Canisters
 Fund wallet with cycles (from ICP): https://medium.com/dfinity/internet-computer-basics-part-3-funding-a-cycles-wallet-a724efebd111
 
