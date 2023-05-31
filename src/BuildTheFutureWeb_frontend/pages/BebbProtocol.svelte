@@ -13,6 +13,12 @@
     const email = document.getElementById('hero-email').value;
     message = await submitEmailSignUpForm(email, 'Intro');
   };
+  let ctaMessage = "";
+  const submitCtaForm = async (event) => {
+    event.preventDefault();
+    const email = document.getElementById('cta-email').value;
+    ctaMessage = await submitEmailSignUpForm(email, 'Intro');
+  };
 </script>
 
 <Topnav />
@@ -64,10 +70,13 @@
 <section id="developer-cta">
     <h2 class="section-title">Developers, Let's Build the Future Together</h2>
     <p class="cta-text">We're actively looking for passionate developers who want to contribute to the Bebb Protocol ecosystem. If you believe in a decentralized future and have skills in blockchain, Web3, or any relevant technology, we would love to hear from you. By joining us, you'll not only get to work on exciting challenges but also play a key role in shaping the next generation of the Web.</p>
-    <form class="cta-form">
+    <form class="cta-form" on:submit={submitCtaForm}>
         <input type="email" id="cta-email" placeholder="Enter your email...">
         <button type="submit">Get In Touch</button>
     </form>
+    {#if ctaMessage}
+        <h2>{ctaMessage}</h2>
+    {/if}
     <a href="https://github.com/Bebb-Protocol-and-Apps/PWS" class="cta-button" target='_blank'>Check out the code repository on GitHub</a>
 </section>
 
