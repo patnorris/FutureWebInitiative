@@ -42,7 +42,7 @@
     <div class="cta-content">
         <h2 class="section-title">Become part of the change</h2>
         <p>Join our passionate community of developers, designers, and innovators who are committed to creating our Web of the future - user-centric, decentralized, 3D, and constantly augmented. We welcome ideas, feedback, and collaboration. No matter your experience level or background, your contributions can make a real impact.</p>
-        <a href="mailto:info@webdecentralizer.com?subject=I%20want%20to%20get%20involved" class="cta-btn">Let's Talk</a>
+        <a href="mailto:futurewebinitiative@proton.me?subject=I%20want%20to%20get%20involved" class="cta-btn">Let's Talk</a>
     </div>
 </section>
 
