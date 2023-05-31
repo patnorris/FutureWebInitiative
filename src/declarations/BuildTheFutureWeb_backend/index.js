@@ -41,4 +41,3 @@ export const createActor = (canisterId, options = {}) => {
 };
 
 export const BuildTheFutureWeb_backend = createActor(canisterId);
-//export const BuildTheFutureWeb_backend = createActor(canisterId, { host: "https://icp-api.io" });

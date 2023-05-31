@@ -50,7 +50,7 @@ shared actor class BuildTheFutureWeb(custodian: Principal) = Self {
     };  
   };
 
-  // TODO: Function for custodian to get all email subscribers
+  // Function for custodian to get all email subscribers
   public shared({ caller }) func getEmailSubscribers() : async [(Text, Types.EmailSubscriber)] {
     if (List.some(custodians, func (custodian : Principal) : Bool { custodian == caller })) {
       return Iter.toArray(emailSubscribersStorage.entries());

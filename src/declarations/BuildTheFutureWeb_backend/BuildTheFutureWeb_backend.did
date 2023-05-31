@@ -3,8 +3,19 @@ type SignUpFormInput =
    emailAddress: text;
    pageSubmittedFrom: text;
  };
+type EmailSubscriber = 
+ record {
+   emailAddress: text;
+   pageSubmittedFrom: text;
+   subscribedAt: nat64;
+ };
 type BuildTheFutureWeb = 
  service {
+   deleteEmailSubscriber: (text) -> (bool);
+   getEmailSubscribers: () -> (vec record {
+                                     text;
+                                     EmailSubscriber;
+                                   });
    greet: (text) -> (text);
    submitSignUpForm: (SignUpFormInput) -> (text);
  };
