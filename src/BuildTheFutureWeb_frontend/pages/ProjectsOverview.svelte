@@ -1,8 +1,5 @@
 <script lang="ts">
-  import { push } from "svelte-spa-router";
-  import { store } from "../store";
-  import Login from "../components/Login.svelte";
-  import Button from "../components/Button.svelte";
+  import { location } from "svelte-spa-router";
   import Topnav from "../components/Topnav.svelte";
   import Footer from "../components/Footer.svelte";
 
@@ -11,7 +8,7 @@
   const submitForm = async (event) => {
     event.preventDefault();
     const email = document.getElementById('hero-email').value;
-    message = await submitEmailSignUpForm(email, 'Intro');
+    message = await submitEmailSignUpForm(email, $location);
   };
 </script>
 
