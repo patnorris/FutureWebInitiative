@@ -14,6 +14,7 @@
     <div class="dropdown-content">
       <a href='#/bebbprotocol'>Bebb Protocol</a>
       <a href='#/openinternetmetaverse'>Open Internet Metaverse</a>
+      <a href='#/democratizedai'>Democratized AI</a>
     </div>
   </div>
   <a href='#/relatedinitiatives'>Related Initiatives</a>

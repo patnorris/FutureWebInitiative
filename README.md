@@ -86,6 +86,17 @@ dfx canister --network ic status BuildTheFutureWeb_frontend
 dfx canister --network ic --wallet 3v5vy-2aaaa-aaaai-aapla-cai deposit-cycles 3000000000000 BuildTheFutureWeb_backend
 dfx canister --network ic --wallet 3v5vy-2aaaa-aaaai-aapla-cai deposit-cycles 300000000000 BuildTheFutureWeb_frontend
 
+# Raw access
+dfx canister call BuildTheFutureWeb_frontend get_asset_properties '("/index.html")' --network ic
+dfx canister call BuildTheFutureWeb_frontend set_asset_properties '( record { key="/index.html"; allow_raw_access=opt(opt(true)) })' --network ic
+dfx canister call BuildTheFutureWeb_frontend set_asset_properties '( record { key="/index.html"; headers=opt(opt(vec{ record{"Access-Control-Allow-Origin"; "*"}})); allow_raw_access=opt(opt(true)) })' --network ic
+
+Resources used:
+https://internetcomputer.org/docs/current/references/asset-canister
+https://forum.dfinity.org/t/dfx-0-13-1-is-promoted-with-breaking-changes/18743/14
+https://forum.dfinity.org/t/how-to-config-image-urls-to-work-the-same-as-raw-version/19949/23
+https://github.com/dfinity/sdk/blob/master/CHANGELOG.md#featfrontend-canister-add-allow_raw_access-config-option
+
 ### Note on frontend environment variables
 
 If you are hosting frontend code somewhere without using DFX, you may need to make one of the following adjustments to ensure your project does not fetch the root key in production:

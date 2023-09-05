@@ -83,6 +83,11 @@
     <p>The Internet is our Metaverse - let's make it a great open space together.</p>
     <a href="#/openinternetmetaverse">Learn More</a>
   </div>
+  <div class="project-card">
+    <h3>Democratized AI</h3>
+    <p>Take Control over Your AI with DeVinci</p>
+    <a href="#/democratizedai">Learn More</a>
+  </div>  
   <h2 class="section-title">Related Initiatives</h2>
   <div class="project-card">
     <h3>Overview on External Projects</h3>

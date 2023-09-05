@@ -46,6 +46,11 @@
       <a href="#/openinternetmetaverse">Learn More</a>
     </div>
     <div class="project-card">
+      <h3>Democratized AI</h3>
+      <p>Take Control over Your AI with DeVinci</p>
+      <a href="#/democratizedai">Learn More</a>
+    </div>  
+    <div class="project-card">
         <h3>Decentralized Web Stack</h3>
         <p>Reimagining the stack of Web technologies we use everyday with a focus on decentralization.</p>
         <a href="#/decentralizedwebstack">Learn More</a>

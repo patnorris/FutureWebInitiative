@@ -6,6 +6,7 @@
   import DecentralizedWebStack from "./pages/DecentralizedWebStack.svelte";
   import BebbProtocol from "./pages/BebbProtocol.svelte";
   import OpenInternetMetaverse from "./pages/OpenInternetMetaverse.svelte";
+  import DemocratizedAI_DeVinci from "./pages/DemocratizedAI_DeVinci.svelte";
   import RelatedInitiatives from "./pages/RelatedInitiatives.svelte";
   import GetInvolved from "./pages/GetInvolved.svelte";
   import ProjectsOverview from "./pages/ProjectsOverview.svelte";
@@ -20,6 +21,7 @@
     "/projectsoverview": ProjectsOverview,
     "/bebbprotocol": BebbProtocol,
     "/openinternetmetaverse": OpenInternetMetaverse,
+    "/democratizedai": DemocratizedAI_DeVinci,
     //"/space/:spaceId": Space,
     // Catch-all (this is optional, but if present it must be the last)
     "*": NotFound,
